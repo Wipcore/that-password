@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% for link in get_flashed_messages() %}
+<p>{{ link }}</p>
+{% endfor %}
+
+<form method="POST">
+    <label for="password">Password</label>
+    <input type="text" name="password">
+    
+    <fieldset>
+        <legend>Valid for</legend>
+        <input type="checkbox" name="valid_type" value="views" checked>
+        Views
+        <input type="text" name="valid_views" value="1"><br>
+        
+        <input type="checkbox" name="valid_type" value="days" checked>
+        Days
+        <input type="text" name="valid_days" value="1">
+    </fieldset>
+
+    <input type="submit" value="Create link">
+</form>
+
+{% endblock %}
