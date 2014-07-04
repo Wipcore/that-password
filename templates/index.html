@@ -1,26 +1,41 @@
 {% extends "layout.html" %}
 {% block body %}
 
-{% for link in get_flashed_messages() %}
-<p>{{ link }}</p>
-{% endfor %}
-
 <form method="POST">
-    <label for="password">Password</label>
-    <input type="text" name="password">
-    
+    <label for="password" class="bold">Enter the password you want to share:</label>
+    <div class="password_wrapper">
+        <input id="password_field" type="text" name="password" placeholder="secret password">
+    </div>
     <fieldset>
         <legend>Valid for</legend>
-        <input type="checkbox" name="valid_type" value="views" checked>
-        Views
-        <input type="text" name="valid_views" value="1"><br>
-        
-        <input type="checkbox" name="valid_type" value="days" checked>
-        Days
-        <input type="text" name="valid_days" value="1">
+        <table>
+            <tr>
+                <td><input type="checkbox" name="valid_type" value="views" checked></td>
+                <td><label for="valid_type">Views</label></td>
+                <td><input class="wide" type="text" name="valid_views" value="1"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="valid_type" value="days"></td>
+                <td><label for="valid_days">Days</label></td>
+                <td><input class="wide" type="text" name="valid_days" value="1"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="valid_type" value="ip"></td>
+                <td><label for="valid_ip">IP Address</label></td>
+                <td><input class="wide" type="text" name="valid_ip" value="" placeholder="198.51.100.38"></td>
+            </tr>
+        </table>
     </fieldset>
 
-    <input type="submit" value="Create link">
+    <div class="submit_wrapper">
+        <input class="big_fancy_button" type="submit" value="Share password">
+    </div>
 </form>
+
+{% for link in get_flashed_messages() %}
+<p class="bold">Visit this link to retrieve the password</p>
+<p>{{ link }}</p>
+<p class="obs">If you limited the password to only one view the link will only work one time</p>
+{% endfor %}
 
 {% endblock %}

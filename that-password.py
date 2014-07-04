@@ -1,5 +1,6 @@
 from flask import Flask, g, url_for, request, redirect, render_template, flash, abort
 from pymongo import MongoClient
+from datetime import datetime, timedelta
 import time
 import uuid
 
@@ -25,9 +26,13 @@ def create_password_link(password, validity):
     doc = {"link": link,
            "password": password, 
            "views": 0,
-           "max_views": validity['views'],
-           "max_age": validity['days'],
            "created": time.strftime("%Y/%m/%d %H:%M:%S")}
+    if "views" in validity:
+        doc["max_views"] = validity['views']
+    if "days" in validity:
+        doc["max_age"] = validity['days']
+    if "ip" in validity:
+        doc["valid_ip"] = validity['ip']
     collection.insert(doc)
     return link
        
@@ -39,9 +44,27 @@ def get_password(password_id):
         abort(404)
     passwords.update({"link": password_id},
                      {"$inc": {"views": 1}})
-    password = doc['password']
-    if int(doc['views']) >= int(doc['max_views']) - 1:
-        passwords.remove({"link": password_id})
+    password = doc["password"]
+    if "max_views" in doc:
+        if int(doc["views"]) >= int(doc["max_views"]):
+            passwords.remove({"link": password_id})
+            abort(404)
+    if "max_days" in doc:
+        now = time.strftime("%Y/%m/%d %H:%M:%S")
+        created_date = datetime(doc["created"], "%Y/%m/%d %H:%M:%S")
+        end_date = created_date + timedelta(days=doc["max_days"])
+        if now > end_date:
+            passwords.remove({"link": password_id})
+            abort(404)
+    if "valid_ip" in doc:
+        client_ip = None
+        if not request.headers.getlist("X-Forwarded-For"):
+           client_ip = request.remote_addr
+        else:
+           client_ip = request.headers.getlist("X-Forwarded-For")[0]
+        if client_ip != doc["valid_ip"]:
+            abort(404)
+        
     return password
 
     
@@ -55,8 +78,10 @@ def index():
             validity['views'] = request.form["valid_views"]
         if 'days' in valid_type:
             validity['days'] = request.form["valid_days"]
+        if 'ip' in valid_type:
+            validity['ip'] = request.form["valid_ip"]
         link = create_password_link(password, validity)
-        flash(link)
+        flash(url_for('view_password', password_id=link, _external=True))
         return render_template('index.html')
     
     return render_template('index.html')

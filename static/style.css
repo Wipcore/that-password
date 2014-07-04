@@ -1,0 +1,105 @@
+body {
+    background: url("/static/background.png");
+    margin: 0x;
+    padding: 0px;
+}
+header,
+main {
+    margin: 0px auto;
+    width: 600px;
+    text-align: center;
+}
+
+form {
+    width: 100%;
+}
+
+.password_wrapper {
+    padding: 1em;
+    margin-bottom: 1em;
+    -webkit-border-radius: 0.7em;
+    -webkit-border-radius: 0.7em;
+    -moz-border-radius: 0.7em;
+    -moz-border-radius: 0.7em;
+    border-radius: 0.7em;
+    border-radius: 0.7em;
+    background: #FFFFFF;
+    border: 1px solid #AAAAAA;
+    box-shadow:inset 1px 1px 5px #888888;
+}
+
+#password_field {
+    width: 100%;
+    font-size: 2em;
+    margin: 0px;
+    padding: 0px;
+    border: 0px solid #FFFFFF;
+    box-shadow: none;
+    -webkit-appearance: none;
+    background-image: none;
+}
+#password_field:focus {outline:none;}
+
+@media screen and (max-width: 600px) {
+    header,
+    main {
+        width: 100%;
+    }
+}
+
+.pagetitle {
+    text-align: center;
+    font-family: 'Indie Flower', cursive;
+    font-size: 3em;
+    margin: 0px;
+    padding: 0px;
+    color: #000000;
+}
+
+
+
+fieldset {
+    -webkit-border-radius: 0.7em;
+    -webkit-border-radius: 0.7em;
+    -moz-border-radius: 0.7em;
+    -moz-border-radius: 0.7em;
+    border-radius: 0.7em;
+    border-radius: 0.7em;
+}
+
+.submit_wrapper {
+    text-align: center;
+    margin-top: 1em;
+}
+
+.big_fancy_button {
+    padding: 1em 2em;
+    -webkit-border-radius: 0.7em;
+    -webkit-border-radius: 0.7em;
+    -moz-border-radius: 0.7em;
+    -moz-border-radius: 0.7em;
+    border-radius: 0.7em;
+    border-radius: 0.7em;
+    font-size: 1em;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.wide {
+    width: 100%;
+}
+
+.obs {
+    font-style:italic;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+}
