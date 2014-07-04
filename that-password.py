@@ -1,3 +1,4 @@
+from werkzeug.contrib.fixers import ProxyFix
 from flask import Flask, g, url_for, request, redirect, render_template, flash, abort
 from pymongo import MongoClient
 from datetime import datetime, timedelta
@@ -5,7 +6,8 @@ import time
 import uuid
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "qwerty"
+app.wsgi_app = ProxyFix(app.wsgi_app)
+app.config['SECRET_KEY'] = uuid.uuid4()
 
 def get_db():
     db = getattr(g, 'mongodb', None)
