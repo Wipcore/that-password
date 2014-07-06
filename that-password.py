@@ -68,9 +68,9 @@ def get_password(password_id):
             passwords.remove({"link": password_id})
             abort(404)
     if "max_days" in doc:
-        now = time.strftime("%Y/%m/%d %H:%M:%S")
-        created_date = datetime(doc["created"], "%Y/%m/%d %H:%M:%S")
-        end_date = created_date + timedelta(days=doc["max_days"])
+        now = datetime.today()
+        created_date = datetime.strptime(doc["created"], "%Y/%m/%d %H:%M:%S")
+        end_date = created_date + timedelta(days=int(doc["max_days"]))
         if now > end_date:
             passwords.remove({"link": password_id})
             abort(404)
