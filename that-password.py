@@ -48,7 +48,7 @@ def create_password_link(password, validity):
     if "views" in validity:
         doc["max_views"] = validity['views']
     if "days" in validity:
-        doc["max_age"] = validity['days']
+        doc["max_days"] = validity['days']
     if "ip" in validity:
         doc["valid_ip"] = validity['ip']
     collection.insert(doc)
