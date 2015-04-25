@@ -40,6 +40,22 @@ form {
 }
 #password_field:focus {outline:none;}
 
+.textarea {
+    padding: 1em;
+    margin-bottom: 1em;
+    -webkit-border-radius: 0.7em;
+    -webkit-border-radius: 0.7em;
+    -moz-border-radius: 0.7em;
+    -moz-border-radius: 0.7em;
+    border-radius: 0.7em;
+    border-radius: 0.7em;
+    background: #FFFFFF;
+    border: 1px solid #AAAAAA;
+    box-shadow: inset 1px 1px 5px #888888;
+    width: 100%;
+    height: 10em;
+}
+
 @media screen and (max-width: 600px) {
     header,
     main {
