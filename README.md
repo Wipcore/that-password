@@ -8,3 +8,17 @@
 - Limit access to the password for a specific IP address
 - Completely free and open source (GPLv3)
 - Powered by Flask (http://flask.pocoo.org/)
+
+## Installation
+
+That-Password is uses __Python 3__
+
+__MongoDB__ is used as database backend
+
+    sudo apt-get install mongodb
+
+### Install dependencies
+
+    pip install flask
+
+    pip install pymongo

@@ -2,40 +2,43 @@
 {% block body %}
 
 <form method="POST">
-    <label for="password" class="bold">Enter the password you want to share:</label>
-    <div class="password_wrapper">
-        <input id="password_field" type="text" name="password" placeholder="secret password">
+    <div class="form-group">
+        <label for="password"><strong>Enter the password you want to share:</strong></label>
+        <div class="password_wrapper">
+            <input id="password_field" class="form-control" type="text" name="password" placeholder="secret password">
+        </div>
     </div>
-    <fieldset>
-        <legend>Valid for</legend>
-        <table>
-            <tr>
-                <td><input type="checkbox" name="valid_type" value="views" checked></td>
-                <td><label for="valid_type">Views</label></td>
-                <td><input class="wide" type="text" name="valid_views" value="1"></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="valid_type" value="days"></td>
-                <td><label for="valid_days">Days</label></td>
-                <td><input class="wide" type="text" name="valid_days" value="1"></td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="valid_type" value="ip"></td>
-                <td><label for="valid_ip">IP Address</label></td>
-                <td><input class="wide" type="text" name="valid_ip" value="" placeholder="198.51.100.38"></td>
-            </tr>
-        </table>
-    </fieldset>
 
-    <div class="submit_wrapper">
-        <input class="big_fancy_button" type="submit" value="Share password">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="valid_type" value="views" checked>
+        Views
+        <input class="form-control" type="text" name="valid_views" value="1">
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="valid_type" value="days">
+        Days
+        <input class="form-control" type="text" name="valid_days" value="1">
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="valid_type" value="ip">
+        IP Address
+        <input class="form-control" type="text" name="valid_ip" value="">
+      </label>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create password link</button>
     </div>
 </form>
 
 {% for link in get_flashed_messages() %}
-<p class="bold">Visit this link to retrieve the password</p>
-<p>{{ link }}</p>
-<p class="obs">If you limited the password to only one view the link will only work one time</p>
+<strong>Visit this link to retrieve the password</strong>
+<p><a href="{{ link }}" target="blank">{{ link }}</a></p>
 {% endfor %}
 
 {% endblock %}

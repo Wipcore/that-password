@@ -24,7 +24,7 @@ import uuid
 
 app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app)
-app.config['SECRET_KEY'] = uuid.uuid4()
+app.config['SECRET_KEY'] = str(uuid.uuid4())
 
 
 def get_db():
@@ -110,10 +110,13 @@ def index():
     return render_template('index.html')
 
 
-@app.route("/password/<password_id>")
+@app.route("/password/<password_id>", methods=["GET", "POST"])
 def view_password(password_id):
-    password = get_password(password_id)
-    return render_template('password.html', password=password)
+    if request.method == "POST":
+        password = get_password(password_id)
+        return render_template('password.html', password=password)
+    else:
+        return render_template('password.html')
 
 
 @app.errorhandler(404)
@@ -122,4 +125,4 @@ def page_not_found(error):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", port=5020, debug=True)
