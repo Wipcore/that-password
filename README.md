@@ -11,14 +11,12 @@
 
 ## Installation
 
-That-Password is uses __Python 3__
+That-Password uses __Python 3__
 
-__MongoDB__ is used as database backend
+__Redis__ is used as database backend
 
-    sudo apt-get install mongodb
+    sudo apt-get install redis-server
 
 ### Install dependencies
 
-    pip install flask
-
-    pip install pymongo
+    pip install -r requirements.txt
